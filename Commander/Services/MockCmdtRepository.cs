@@ -31,5 +31,10 @@ namespace Commander.Services
         {
             return true;
         }
+
+        public async Task UpdateCommandAsync(Command command)
+        {
+            return;
+        }
     }
 }

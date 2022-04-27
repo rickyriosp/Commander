@@ -40,5 +40,10 @@ namespace Commander.Services
         {
             return await _context.SaveChangesAsync() >= 0;
         }
+
+        public async Task UpdateCommandAsync(Command command)
+        {
+            // Nothing
+        }
     }
 }

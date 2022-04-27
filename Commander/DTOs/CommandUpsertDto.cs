@@ -2,7 +2,7 @@
 
 namespace Commander.DTOs
 {
-    public class CommandCreateDto
+    public class CommandUpsertDto
     {
         [Required]
         [MaxLength(250)]

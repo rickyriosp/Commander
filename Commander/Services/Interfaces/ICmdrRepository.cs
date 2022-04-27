@@ -8,5 +8,6 @@ namespace Commander.Services.Interfaces
         Task<Command> GetCommandByIdAsync(int id);
         void CreateCommand(Command command);
         Task<bool> SaveChangesAsync();
+        Task UpdateCommandAsync(Command command);
     }
 }
