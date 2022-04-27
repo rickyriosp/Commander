@@ -5,8 +5,11 @@ namespace Commander.Data
 {
     public class CommanderContext : DbContext
     {
-        public CommanderContext(DbContextOptions<CommanderContext> options) : base(options)
+        protected readonly IConfiguration _configuration;
+
+        public CommanderContext(IConfiguration configuration) : base()
         {
+            _configuration = configuration;
         }
 
         public DbSet<Command> Commands { get; set; }

@@ -7,16 +7,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var connectionString = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<CommanderContext>(options => 
-    options.UseSqlServer(connectionString));
+var provider = builder.Configuration.GetValue("DatabaseProvider", "SqlServer");
+switch (provider)
+{
+    case "SqlServer":
+        builder.Services.AddDbContext<CommanderContext, SqlServerContext>();
+        break;
+    case "PostgreSql":
+        builder.Services.AddDbContext<CommanderContext, PostgreSqlContext>();
+        break;
+}
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ICRepository, MockCRepository>();
+//builder.Services.AddScoped<ICmdrRepository, MockCmdtRepository>();
+builder.Services.AddScoped<ICmdrRepository, SqlCmdrRepository>();
 
 var app = builder.Build();
 

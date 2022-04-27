@@ -9,27 +9,27 @@ namespace Commander.Controllers
     [ApiController]
     public class CommandsController : ControllerBase
     {
-        private readonly ICRepository _repository;
+        private readonly ICmdrRepository _repository;
 
-        public CommandsController(ICRepository repository)
+        public CommandsController(ICmdrRepository repository)
         {
             _repository = repository;
         }
 
         // GET api/commands
         [HttpGet]
-        public ActionResult<IEnumerable<Command>> GetAllCommands()
+        public async Task<ActionResult<IEnumerable<Command>>> GetAllCommands()
         {
-            var commandItems = _repository.GetAllCommands();
+            var commandItems = await _repository.GetAllCommandsAsync();
 
             return Ok(commandItems);
         }
 
         // GET api/commands/5
         [HttpGet("{id}")]
-        public ActionResult<Command> GetCommandById(int id)
+        public async Task<ActionResult<Command>> GetCommandById(int id)
         {
-            var commandItem = _repository.GetCommandById(id);
+            var commandItem = await _repository.GetCommandByIdAsync(id);
 
             return Ok(commandItem);
         }

@@ -3,9 +3,9 @@ using Commander.Services.Interfaces;
 
 namespace Commander.Services
 {
-    public class MockCRepository : ICRepository
+    public class MockCmdtRepository : ICmdrRepository
     {
-        public IEnumerable<Command> GetAllCommands()
+        public async Task<IEnumerable<Command>> GetAllCommandsAsync()
         {
             var commands = new List<Command>()
             {
@@ -17,7 +17,7 @@ namespace Commander.Services
             return commands;
         }
 
-        public Command GetCommandById(int id)
+        public async Task<Command> GetCommandByIdAsync(int id)
         {
             return new Command { Id = 0, HowTo = "Boil an egg", Line = "Boil water", Platform = "Kettle & Pan" };
         }
