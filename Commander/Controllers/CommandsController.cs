@@ -36,7 +36,7 @@ namespace Commander.Controllers
         }
 
         // GET api/commands/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetCommandById")]
         public async Task<ActionResult<CommandReadDto>> GetCommandById(int id)
         {
             var commandItem = await _repository.GetCommandByIdAsync(id);
@@ -48,6 +48,19 @@ namespace Commander.Controllers
             var commandDto = _mapper.Map<CommandReadDto>(commandItem);
 
             return Ok(commandDto);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CommandReadDto>> CreateCommand(CommandCreateDto commandCreateDto)
+        {
+            var commandModel = _mapper.Map<Command>(commandCreateDto);
+
+            _repository.CreateCommand(commandModel);
+            await _repository.SaveChangesAsync();
+
+            var commandReadDto = _mapper.Map<CommandReadDto>(commandModel);
+
+            return CreatedAtRoute(nameof(GetCommandById), new { id = commandModel.Id }, commandReadDto);
         }
     }
 }

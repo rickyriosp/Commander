@@ -6,5 +6,7 @@ namespace Commander.Services.Interfaces
     {
         Task<IEnumerable<Command>> GetAllCommandsAsync();
         Task<Command> GetCommandByIdAsync(int id);
+        void CreateCommand(Command command);
+        Task<bool> SaveChangesAsync();
     }
 }

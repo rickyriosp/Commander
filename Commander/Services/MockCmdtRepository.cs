@@ -21,5 +21,15 @@ namespace Commander.Services
         {
             return new Command { Id = 0, HowTo = "Boil an egg", Line = "Boil water", Platform = "Kettle & Pan" };
         }
+
+        public void CreateCommand(Command command)
+        {
+            return;
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return true;
+        }
     }
 }

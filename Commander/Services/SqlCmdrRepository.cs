@@ -25,5 +25,20 @@ namespace Commander.Services
             var commandItem = await _context.Commands.FirstOrDefaultAsync(c => c.Id == id);
             return commandItem;
         }
+
+        public void CreateCommand(Command command)
+        {
+            if (command == null)
+            {
+                throw new ArgumentNullException(nameof(command));
+            }
+
+            _context.Add(command);
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync() >= 0;
+        }
     }
 }
