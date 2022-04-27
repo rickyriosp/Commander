@@ -45,5 +45,15 @@ namespace Commander.Services
         {
             // Nothing
         }
+
+        public async Task DeleteCommandAsync(Command command)
+        {
+            if (command == null)
+            {
+                throw new ArgumentNullException(nameof(command));
+            }
+
+            _context.Commands.Remove(command);
+        }
     }
 }

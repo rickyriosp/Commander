@@ -36,5 +36,10 @@ namespace Commander.Services
         {
             return;
         }
+
+        public async Task DeleteCommandAsync(Command command)
+        {
+            return;
+        }
     }
 }

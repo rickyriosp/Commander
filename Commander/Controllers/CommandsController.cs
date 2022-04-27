@@ -114,5 +114,21 @@ namespace Commander.Controllers
 
             return NoContent();
         }
+
+        // DELETE api/commands/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCommand(int id)
+        {
+            var commandModelFromRepo = await _repository.GetCommandByIdAsync(id);
+            if (commandModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            await _repository.DeleteCommandAsync(commandModelFromRepo);
+            await _repository.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }

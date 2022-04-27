@@ -9,5 +9,6 @@ namespace Commander.Services.Interfaces
         void CreateCommand(Command command);
         Task<bool> SaveChangesAsync();
         Task UpdateCommandAsync(Command command);
+        Task DeleteCommandAsync(Command command);
     }
 }
