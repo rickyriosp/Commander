@@ -3,6 +3,7 @@ using Commander.DTOs;
 using Commander.Models;
 using Commander.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Commander.Controllers
@@ -75,6 +76,38 @@ namespace Commander.Controllers
             }
 
             _mapper.Map(commandUpdateDto, commandModelFromRepo);
+
+            await _repository.UpdateCommandAsync(commandModelFromRepo);
+            await _repository.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // PATCH api/commands/5
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> PartialCommandUpdate(int id, JsonPatchDocument<CommandUpsertDto> patchDoc)
+        {
+            var commandModelFromRepo = await _repository.GetCommandByIdAsync(id);
+            if (commandModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var commandToPatch = _mapper.Map<CommandUpsertDto>(commandModelFromRepo);
+
+            patchDoc.ApplyTo(commandToPatch, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(commandToPatch, commandModelFromRepo);
 
             await _repository.UpdateCommandAsync(commandModelFromRepo);
             await _repository.SaveChangesAsync();

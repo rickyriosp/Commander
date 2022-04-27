@@ -11,6 +11,7 @@ namespace Commander.Profiles
             // Source -> Target
             CreateMap<Command, CommandReadDto>();
             CreateMap<CommandUpsertDto, Command>();
+            CreateMap<Command, CommandUpsertDto>();
         }
     }
 }
