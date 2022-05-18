@@ -3,7 +3,7 @@ using Commander.Services.Interfaces;
 
 namespace Commander.Services
 {
-    public class MockCmdtRepository : ICmdrRepository
+    public class MockCmdrRepository : ICmdrRepository
     {
         public async Task<IEnumerable<Command>> GetAllCommandsAsync()
         {
